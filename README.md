@@ -81,7 +81,7 @@ return [
 
 ## Facade Usage
 
-Use Sms Facade
+Use Facade
 
 ```bash
 use Vector\LaravelMultiPaymentMethods\Facade\Payment;
@@ -167,7 +167,7 @@ use Vector\LaravelMultiPaymentMethods\Facade\Payment;
 
 ## License
 
-The Laravel SMS Gateway package is open-sourced software licensed under
+The Laravel Payment Methods Gateway package is open-sourced software licensed under
 the [MIT license](https://github.com/vect0o0r/laravel-multi-payment-methods/blob/master/LICENSE).
 
 ## Support
