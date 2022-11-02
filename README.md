@@ -106,7 +106,7 @@ use Vector\LaravelMultiPaymentMethods\Facade\Payment;
             "customer" => [
                 "name" => 'Mohamed Khaled',
                 "email" => 'mo.khaled.yousef@gmail.com',
-                "phone" => '01118065363',
+                "phone" => '+2001118065363',
             ],
             "items" => [
                 [

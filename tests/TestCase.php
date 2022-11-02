@@ -36,7 +36,7 @@ abstract class TestCase extends Orchestra
         return [
             "name" => 'Mohamed Khaled',
             "email" => 'mo.khaled.yousef@gmail.com',
-            "phone" => '01118065363',
+            "phone" => '+2001118065363',
         ];
     }
 
