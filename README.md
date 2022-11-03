@@ -55,21 +55,21 @@ return [
     'methods' => [
         /*
            |--------------------------------------------------------------------------
-           | Upayment Method
+           | Upayments Method
            |--------------------------------------------------------------------------
            |
-           | Here are credentials for Upayment gateway.
+           | Here are credentials for Upayments gateway.
            |
            */
-        'upayment' => [
-            'username' => env('UPAYMENT_USERNAME', 'test'),
-            'password' => env('UPAYMENT_PASSWORD', 'test'),
-            'api_key' => env('UPAYMENT_API_KEY', 'jtest123'),
-            'merchant_id' => env('UPAYMENT_MERCHANT_ID', '1201'),
-            'success_url' => env('UPAYMENT_SUCCESS_URL', 'http://127.0.0.1:8000/success_url'),
-            'error_url' => env('UPAYMENT_ERROR_URL', 'http://127.0.0.1:8000/error_url'),
-            'notify_url' => env('UPAYMENT_NOTIFY_URL', 'http://127.0.0.1:8000/notify_url'),
-            'sandbox' => env('UPAYMENT_SAND_BOX', true),
+        'upayments' => [
+            'username' => env('UPAYMENTS_USERNAME', 'test'),
+            'password' => env('UPAYMENTS_PASSWORD', 'test'),
+            'api_key' => env('UPAYMENTS_API_KEY', 'jtest123'),
+            'merchant_id' => env('UPAYMENTS_MERCHANT_ID', '1201'),
+            'success_url' => env('UPAYMENTS_SUCCESS_URL', 'http://127.0.0.1:8000/success_url'),
+            'error_url' => env('UPAYMENTS_ERROR_URL', 'http://127.0.0.1:8000/error_url'),
+            'notify_url' => env('UPAYMENTS_NOTIFY_URL', 'http://127.0.0.1:8000/notify_url'),
+            'sandbox' => env('UPAYMENTS_SAND_BOX', true),
         ],
 
     ]
@@ -91,7 +91,7 @@ use Vector\LaravelMultiPaymentMethods\Facade\Payment;
 
 ## Request
 
-### Upayment
+### Upayments
 
 #### To Create Payment
 
@@ -126,7 +126,7 @@ use Vector\LaravelMultiPaymentMethods\Facade\Payment;
                 ]
             ]
         ];
-  Payment::driver('upayment')->pay($paymentDetails);
+  Payment::driver('upayments')->pay($paymentDetails);
 ```
 
 ## Request

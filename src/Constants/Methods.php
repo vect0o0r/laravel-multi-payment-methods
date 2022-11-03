@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 enum Methods: string
 {
     // DEFINING CONSTANTS
-    case UPAYMENT = 'upayment';
+    case UPAYMENTS = 'upayments';
 
     public static function getNames(): array
     {

@@ -10,7 +10,7 @@ use Vector\LaravelMultiPaymentMethods\Interfaces\PaymentGatewayInterface;
  *
  * @author Vector <mo.khaled.yousef@gmail.com>
  */
-class Upayment extends BaseMethod implements PaymentGatewayInterface
+class Upayments extends BaseMethod implements PaymentGatewayInterface
 {
 
     /**
@@ -22,7 +22,7 @@ class Upayment extends BaseMethod implements PaymentGatewayInterface
     public function __construct()
     {
         //Set Method Driver
-        $this->driver = 'upayment';
+        $this->driver = 'upayments';
         //Set Method Live Base Url
         $this->live_base_url = $this->base_url = "https://api.upayments.com";
         //Set Method test Base Url

@@ -7,11 +7,11 @@ use Vector\LaravelMultiPaymentMethods\Facade\Payment;
 use Vector\LaravelMultiPaymentMethods\Methods\Managers\PaymentManager;
 use Vector\Tests\TestCase;
 
-class UpaymentTest extends TestCase
+class UpaymentsTest extends TestCase
 {
-    protected string $driver = "upayment";
+    protected string $driver = "upayments";
     /**
-     * Upayment Tests.
+     * Upayments Tests.
      *
      * @author Vector <mo.khaled.yousef@gmail.com>
      */
