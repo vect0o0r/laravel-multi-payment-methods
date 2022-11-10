@@ -71,7 +71,7 @@ class Upayments extends BaseMethod implements PaymentGatewayInterface
             "merchant_id" => $this->config->merchant_id,
             "username" => $this->config->username,
             "password" => stripslashes($this->config->password),
-            "api_key" => bcrypt($this->config->api_key),
+            "api_key" => $this->sandbox ? $this->config->api_key : bcrypt($this->config->api_key),
             "success_url" => $this->config->success_url,
             "error_url" => $this->config->error_url,
             "test_mode" => $this->sandbox ? 1 : 0,

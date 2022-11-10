@@ -22,7 +22,6 @@ class UpaymentsTest extends TestCase
         $paymentDetails = ["transaction" => $this->getTransactionDetails(), "customer" => $this->getCustomerDetails(), "items" => $this->getItemsDetails()];
         $payment = new PaymentManager;
         $payment = (object)$payment->driver($this->driver)->pay($paymentDetails);
-        dd($payment);
         $this->assertTrue($payment->success);
         $this->assertNotNull($payment->payment_url);
         $this->assertEquals(200, $payment->code);
