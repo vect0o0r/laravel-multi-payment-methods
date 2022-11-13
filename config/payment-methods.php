@@ -29,7 +29,5 @@ return [
             'notify_url' => env('UPAYMENTS_NOTIFY_URL', 'http://127.0.0.1:8000/notify_url'),
             'sandbox' => env('UPAYMENTS_SAND_BOX', true),
         ],
-
     ]
-
 ];

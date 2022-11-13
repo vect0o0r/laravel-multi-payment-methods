@@ -161,7 +161,13 @@ abstract class BaseMethod
      */
     public function response(int $code, bool $success, string $message, string $payment_url = null, array $data = null): array
     {
-        return ["code" => $code, "success" => $success, "message" => $message, "payment_url" => $payment_url, "data" => $data];
+        return [
+            "code" => $code,
+            "success" => $success,
+            "message" => $message,
+            "payment_url" => $payment_url,
+            "data" => $data
+        ];
     }
 
     /**

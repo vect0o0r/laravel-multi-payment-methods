@@ -27,4 +27,14 @@ class UpaymentsTest extends TestCase
         $this->assertEquals(200, $payment->code);
     }
 
+    /** @test * */
+    public function test_user_can_get_payment_details(): void
+    {
+        $payment = new PaymentManager;
+        $payment = (object)$payment->driver($this->driver)->getPaymentDetails("106_1668081710");
+        $this->assertTrue($payment->success);
+        $this->assertNotNull($payment->payment_url);
+        $this->assertEquals(200, $payment->code);
+    }
+
 }

@@ -6,7 +6,7 @@ use JsonException;
 use Vector\LaravelMultiPaymentMethods\Interfaces\PaymentGatewayInterface;
 
 /**
- * SmsBox class.
+ * Upayments Payment Method.
  *
  * @author Vector <mo.khaled.yousef@gmail.com>
  */
@@ -32,12 +32,12 @@ class Upayments extends BaseMethod implements PaymentGatewayInterface
         //Calling Parent Constructor
         parent::__construct();
         //Init Http Client With Additional Configs
-        $this->client->withHeaders(["x-Authorization" => $this->config->api_key]);
+        $this->client->withHeaders(["Token" => $this->config->api_key]);
     }
 
 
     /**
-     * Send sms message.
+     * Send Payment Request
      *
      * @param array $details
      * @return array
@@ -55,7 +55,7 @@ class Upayments extends BaseMethod implements PaymentGatewayInterface
     }
 
     /**
-     * Send sms message.
+     * Build Payment Request
      *
      * @param array $details
      * @return array
@@ -88,6 +88,51 @@ class Upayments extends BaseMethod implements PaymentGatewayInterface
             "ProductPrice" => json_encode(collect($productDetails)->pluck('price')->toArray(), JSON_THROW_ON_ERROR),
             "ProductQty" => json_encode(collect($productDetails)->pluck('quantity')->toArray(), JSON_THROW_ON_ERROR),
         ];
+    }
+
+    /**
+     * get Payment Details
+     *
+     * @param string $orderID
+     * @return array
+     */
+    public function getPaymentDetails(string $orderID): array
+    {
+        $response = $this->client->asForm()->baseUrl("https://statusapi.upayments.com")->post("api/check/payment/status", ['merchant_id' => $this->config->merchant_id, 'order_id' => $orderID]);
+        $jsonResponse = $response->object();
+        $success = $response->status() === 200 && $jsonResponse->status === "success";
+        $message = $success ? ($jsonResponse->status ?? null) : ($jsonResponse->error_msg ?? null);
+        $payment_url = $jsonResponse->paymentURL ?? null;
+        return $this->response($response->status(), $success, $message, $payment_url, (array)$jsonResponse);
+    }
+
+    /**
+     * Validate Response CallBack
+     *
+     * @param array $request
+     * @return bool
+     */
+    public function validateResponseCallBack(array $request): bool
+    {
+        return true;
+    }
+
+    /**
+     * Response CallBack
+     *
+     * @param array $responseDetails
+     * @return array
+     */
+    public function responseCallBack(array $responseDetails): array
+    {
+        $isValid = $this->validateResponseCallBack($responseDetails);
+        if (!$isValid)
+            return $this->response(400, false, "Payment Failed", null, $responseDetails);
+        $objectResponse = (object)$responseDetails;
+        $success = $objectResponse->Result === 'CAPTURED';
+        $status = $success ? 200 : 400;
+        $message = $objectResponse->Result;
+        return $this->response($status, $success, $message, null, $responseDetails);
     }
 
 }
