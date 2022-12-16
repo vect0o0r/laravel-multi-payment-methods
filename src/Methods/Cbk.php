@@ -73,6 +73,7 @@ class Cbk extends BaseMethod implements PaymentGatewayInterface
     {
         $this->generateAuthKey();
         $payment_url = route('cbk.payment-view', $this->buildPayRequest($details));
+        dd($payment_url);
         return $this->response(200, true, "success", $payment_url);
         $message = $success ? ($jsonResponse->status ?? null) : ($jsonResponse->error_msg ?? null);
 
