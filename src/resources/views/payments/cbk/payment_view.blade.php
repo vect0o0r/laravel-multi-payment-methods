@@ -3,7 +3,7 @@
 @endphp
 <form id='pgForm' method='post' action="{{$url}}" enctype='application/x-www-form-urlencoded'>
     @php
-        $formKeys = Arr::except($params,['url']);
+        $formKeys = \Arr::except($params,['url']);
             foreach ($formKeys as $key => $value) {
         echo "<input type='hidden' name='$key' value='$value'>";
           }
