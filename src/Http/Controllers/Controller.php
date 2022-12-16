@@ -1,6 +1,6 @@
 <?php
 
-use Vector\LaravelMultiPaymentMethods\Http\Controllers;
+namespace Vector\LaravelMultiPaymentMethods\Http\Controllers;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
