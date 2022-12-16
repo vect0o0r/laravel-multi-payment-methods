@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\View;
 class CbkPaymentController extends Controller
 {
 
-    public function paymentView(Request $request)
+    public function paymentView(Request $request): \Illuminate\Contracts\View\View
     {
-        return View::make('payment::cbkPaymentView.blade', ['params' => $request->all()]);
+        return View::make('payment::cbk.payment_view', ['params' => $request->all()]);
     }
 
 }
