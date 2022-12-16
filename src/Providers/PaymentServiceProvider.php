@@ -29,7 +29,10 @@ class PaymentServiceProvider extends ServiceProvider
      */
     public function register()
     {
+
         $this->mergeConfigFrom(__DIR__ . '/../../config/payment-methods.php', 'payment-methods');
+        $this->loadViewsFrom(__DIR__ . '../resources/views/payment', 'payment');
+        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
         $this->app->bind('payment', function () {
             return new PaymentManager();
         });

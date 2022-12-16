@@ -3,6 +3,7 @@
 namespace Vector\LaravelMultiPaymentMethods\Constants;
 
 use Illuminate\Support\Str;
+
 /**
  * SMS Available Methods.
  *
@@ -13,6 +14,7 @@ enum Methods: string
 {
     // DEFINING CONSTANTS
     case UPAYMENTS = 'upayments';
+    case CBK = 'cbk';
 
     public static function getNames(): array
     {
