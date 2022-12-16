@@ -100,6 +100,7 @@ class Cbk extends BaseMethod implements PaymentGatewayInterface
         $customerDetails = $details['customer'] ?? [];
         $productDetails = $details['items'] ?? [];
         return [
+            'url' => $this->base_url,
             'tij_MerchantEncryptCode' => $this->config?->encryption_key,
             'tij_MerchAuthKeyApi' => $this->accessToken,
             'tij_MerchantPaymentLang' => 'en',
