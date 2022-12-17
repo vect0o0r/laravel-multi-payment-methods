@@ -73,19 +73,7 @@ class Cbk extends BaseMethod implements PaymentGatewayInterface
     {
         $this->generateAuthKey();
         $payment_url = route('cbk.payment-view', $this->buildPayRequest($details));
-        dd($payment_url);
         return $this->response(200, true, "success", $payment_url);
-        $message = $success ? ($jsonResponse->status ?? null) : ($jsonResponse->error_msg ?? null);
-
-        dd($payment_url);
-        return View::make('payment::cbkPaymentView.blade', ['details' => $this->buildPayRequest($details)]);
-        $response = $this->client->post("/ePay/pg/epay?_v={$this->accessToken}", $this->buildPayRequest($details));
-        $jsonResponse = $response->object();
-        dd($response->body(), $response->status());
-        $success = $response->status() === 200 && $jsonResponse->status === "success";
-        $message = $success ? ($jsonResponse->status ?? null) : ($jsonResponse->error_msg ?? null);
-        $payment_url = $jsonResponse->paymentURL ?? null;
-        return $this->response($response->status(), $success, $message, $payment_url, (array)$jsonResponse);
     }
 
     /**
