@@ -31,9 +31,9 @@ class PaymentServiceProvider extends ServiceProvider
     {
 
         $this->mergeConfigFrom(__DIR__ . '/../../config/payment-methods.php', 'payment-methods');
-        $this->loadViewsFrom(__DIR__ . '../../resources/views/payments', 'payment');
+        $this->loadViewsFrom(__DIR__ . '../resources/views/payments', 'payment');
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
-        $this->publishes([__DIR__ . '../../resources/views/payments' => resource_path('views/vendor/vector/payments'),]);
+        $this->publishes([__DIR__ . '../resources/views/payments' => resource_path('views/vendor/vector/payments'),]);
         $this->app->bind('payment', function () {
             return new PaymentManager();
         });
