@@ -44,7 +44,6 @@ return [
             'client_secret' => "1fpz0XLtxlxnCrZN-l-pMmgIzOrwmd7zoZ_A3gIglks1",
             'encryption_key' => "FrMHBg6TQUihtWELiqcFxJvcTY0dnwGqhsBqyH0C6D2oDlSYvarVpNOkR04pZJ5KJklDN8AKm2RqXohri_29tlBZxP8OT_6GgYG90iSxWs41",
             'merchant_id' => "M391",
-            'return_url' => env('UPAYMENTS_SUCCESS_URL', 'https://admin.mazadkwt.com/api/payment/cbk/response-callback'),
             'sandbox' => env('CBK_SAND_BOX', true),
         ],
     ]

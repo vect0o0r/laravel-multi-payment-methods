@@ -97,7 +97,7 @@ class Cbk extends BaseMethod implements PaymentGatewayInterface
             'tij_MerchantPaymentRef' => $transactionDetails['id'],
             'MerchantPaymentCurrency' => $transactionDetails['currency_code'],
             'tij_MerchPayType' => $transactionDetails['method'] ?? 1,
-            'tij_MerchReturnUrl' => $this->config->return_url,
+            'tij_MerchReturnUrl' => $transactionDetails['return_url'] ?? 1,
             'tij_MerchantUdf1' => $transactionDetails['id'] ?? null,
             'tij_MerchantUdf2' => "",
             'tij_MerchantUdf3' => "",
