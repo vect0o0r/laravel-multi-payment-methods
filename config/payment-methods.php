@@ -40,11 +40,11 @@ return [
           */
 
         'cbk' => [
-            'client_id' => "44977436",
-            'client_secret' => "1fpz0XLtxlxnCrZN-l-pMmgIzOrwmd7zoZ_A3gIglks1",
-            'encryption_key' => "FrMHBg6TQUihtWELiqcFxJvcTY0dnwGqhsBqyH0C6D2oDlSYvarVpNOkR04pZJ5KJklDN8AKm2RqXohri_29tlBZxP8OT_6GgYG90iSxWs41",
-            'merchant_id' => "M391",
-            'sandbox' => env('CBK_SAND_BOX', true),
+            'client_id' => env('CBK_CLIENT_ID'),
+            'merchant_id' => env('CBK_MERCHANT_ID'),
+            'client_secret' => env('CBK_CLIENT_SECRET'),
+            'encryption_key' => env('CBK_ENCRYPTION_KEY'),
+            'sandbox' =>env('CBK_SAND_BOX'),
         ],
     ]
 ];
