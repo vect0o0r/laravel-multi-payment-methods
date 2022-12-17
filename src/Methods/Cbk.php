@@ -112,12 +112,16 @@ class Cbk extends BaseMethod implements PaymentGatewayInterface
      * @param string $orderID
      * @param string|null $accessToken
      * @return array
+     * @throws JsonException
      */
     public function getPaymentDetails(string $orderID, string $accessToken = null): array
     {
         $requestDetails = ['authkey' => $accessToken, 'encrypmerch' => $this->config?->encryption_key, 'payid' => $orderID];
         $response = $this->client->withBasicAuth($this->config?->client_id, $this->config?->client_secret)->post("ePay/api/cbk/online/pg/Verify", $requestDetails);
-        dd($response->status(), $response->object());
+        $jsonResponse = $response->object();
+        if ($response->status() !== 200 && $jsonResponse->Status != -1 && $jsonResponse->Status != 0)
+            throw new JsonException("FAiled To Get Access Token (Invalid authkey OR Pay ID Credentials)");
+        return $this->response($response->status(), ($jsonResponse->Status == 1), $jsonResponse->Message, null, (array)$jsonResponse);
     }
 
     /**
@@ -136,19 +140,15 @@ class Cbk extends BaseMethod implements PaymentGatewayInterface
      *
      * @param array $responseDetails
      * @return array
+     * @throws JsonException
      */
     public function responseCallBack(array $responseDetails): array
     {
         $isValid = $this->validateResponseCallBack($responseDetails);
         if (!$isValid)
             return $this->response(400, false, "Payment Failed", null, $responseDetails);
-
-        $transactionDetails = $this->getPaymentDetails($responseDetails['pay_id'], $responseDetails['access_token']);
-        $objectResponse = (object)$responseDetails;
-        $success = $objectResponse->Result === 'CAPTURED';
-        $status = $success ? 200 : 400;
-        $message = $objectResponse->Result;
-        return $this->response($status, $success, $message, null, $responseDetails);
+        $paymentDetails = $this->getPaymentDetails($responseDetails['pay_id'], $responseDetails['access_token']);
+        return $this->response($paymentDetails['code'], $paymentDetails['success'], $paymentDetails['message'], null, $paymentDetails['data']);
     }
 
 }
