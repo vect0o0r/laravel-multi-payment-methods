@@ -116,7 +116,7 @@ class Cbk extends BaseMethod implements PaymentGatewayInterface
     public function getPaymentDetails(string $orderID, string $accessToken = null): array
     {
         $requestDetails = ['authkey' => $accessToken, 'encrypmerch' => $this->config?->encryption_key, 'payid' => $orderID];
-        $response = $this->client->post("ePay/api/cbk/online/pg/Verify", $requestDetails);
+        $response = $this->client->withBasicAuth($this->config?->client_id, $this->config?->client_secret)->post("ePay/api/cbk/online/pg/Verify", $requestDetails);
         dd($response->status(), $response->object());
     }
 
