@@ -110,16 +110,14 @@ class Cbk extends BaseMethod implements PaymentGatewayInterface
      * get Payment Details
      *
      * @param string $orderID
+     * @param string|null $accessToken
      * @return array
      */
-    public function getPaymentDetails(string $orderID): array
+    public function getPaymentDetails(string $orderID, string $accessToken = null): array
     {
-        $response = $this->client->asForm()->baseUrl("https://statusapi.upayments.com")->post("api/check/payment/status", ['merchant_id' => $this->config->merchant_id, 'order_id' => $orderID]);
-        $jsonResponse = $response->object();
-        $success = $response->status() === 200 && $jsonResponse->status === "success";
-        $message = $success ? ($jsonResponse->status ?? null) : ($jsonResponse->error_msg ?? null);
-        $payment_url = $jsonResponse->paymentURL ?? null;
-        return $this->response($response->status(), $success, $message, $payment_url, (array)$jsonResponse);
+        $requestDetails = ['authkey' => $accessToken, 'encrypmerch' => $this->config?->encryption_key, 'payid' => $orderID];
+        $response = $this->client->post("ePay/api/cbk/online/pg/Verify", $requestDetails);
+        dd($response->status(), $response->object());
     }
 
     /**
@@ -144,6 +142,8 @@ class Cbk extends BaseMethod implements PaymentGatewayInterface
         $isValid = $this->validateResponseCallBack($responseDetails);
         if (!$isValid)
             return $this->response(400, false, "Payment Failed", null, $responseDetails);
+
+        $transactionDetails = $this->getPaymentDetails($responseDetails['pay_id'], $responseDetails['access_token']);
         $objectResponse = (object)$responseDetails;
         $success = $objectResponse->Result === 'CAPTURED';
         $status = $success ? 200 : 400;

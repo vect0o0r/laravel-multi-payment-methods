@@ -30,13 +30,15 @@ interface PaymentGatewayInterface
      */
     public function buildPayRequest(array $details): array;
 
+
     /**
      * get Payment Details
      *
      * @param string $orderID
+     * @param string|null $accessToken
      * @return array
      */
-    public function getPaymentDetails(string $orderID): array;
+    public function getPaymentDetails(string $orderID, string $accessToken = null): array;
 
     /**
      * Validate Response CallBack
