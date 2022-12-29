@@ -94,9 +94,10 @@ class Upayments extends BaseMethod implements PaymentGatewayInterface
      * get Payment Details
      *
      * @param string $orderID
+     * @param string|null $accessToken
      * @return array
      */
-    public function getPaymentDetails(string $orderID): array
+    public function getPaymentDetails(string $orderID, string $accessToken = null): array
     {
         $response = $this->client->asForm()->baseUrl("https://statusapi.upayments.com")->post("api/check/payment/status", ['merchant_id' => $this->config->merchant_id, 'order_id' => $orderID]);
         $jsonResponse = $response->object();
