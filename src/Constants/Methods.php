@@ -15,6 +15,7 @@ enum Methods: string
     // DEFINING CONSTANTS
     case UPAYMENTS = 'upayments';
     case CBK = 'cbk';
+    case MOYASAR = 'moyasar';
 
     public static function getNames(): array
     {

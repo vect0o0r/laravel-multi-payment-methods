@@ -44,7 +44,22 @@ return [
             'merchant_id' => env('CBK_MERCHANT_ID'),
             'client_secret' => env('CBK_CLIENT_SECRET'),
             'encryption_key' => env('CBK_ENCRYPTION_KEY'),
-            'sandbox' =>env('CBK_SAND_BOX'),
+            'sandbox' => env('CBK_SAND_BOX'),
+        ],
+
+        /*
+          |--------------------------------------------------------------------------
+          | Moyasar Method
+          |--------------------------------------------------------------------------
+          |
+          | Here are credentials for Moyasar gateway.
+          |
+          */
+
+        'moyasar' => [
+            'publishable_key' => env('MOYASAR_PUBLISHABLE_KEY', 'pk_test_MrhgMSK9MwUFpf2RiwFDzyToz6Pzi5qTx5ZsCuGz'),
+            'secret_key' => env('MOYASAR_SECRET_KEY', 'sk_test_2XkyCPfWp1XDLqHhoGqgn34i8fMDrW6LTHgHsAra'),
+            'sandbox' => env('MOYASAR_SAND_BOX', true),
         ],
     ]
 ];
