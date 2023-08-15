@@ -49,21 +49,7 @@ class Moyasar extends BaseMethod
      * Send Payment Request
      *
      * @param array $details
-     * @return array
-     * @throws JsonException
-     */
-    public function pay(array $details): array
-    {
-        $payment_url = route('moyasar.payment_view', $this->buildPayRequest($details));
-        return $this->response(200, true, "success", $payment_url);
-    }
-
-    /**
-     * Send Payment Request
-     *
-     * @param array $details
      * @return Illuminate\View\View
-     * @throws JsonException
      */
     public function getPayPage(array $details)
     {
@@ -103,37 +89,9 @@ class Moyasar extends BaseMethod
     {
         $response = $this->client->get("/v1/payments/$paymentID");
         $jsonResponse = $response->object();
-        dd($jsonResponse);
-        if ($response->status() !== 200 && $jsonResponse->Status != -1 && $jsonResponse->Status != 0)
-            throw new JsonException("FAiled To Get Access Token (Invalid authkey OR Pay ID Credentials)");
-        return $this->response($response->status(), ($jsonResponse->Status == 1), $jsonResponse->Message, null, (array)$jsonResponse);
-    }
-
-    /**
-     * Validate Response CallBack
-     *
-     * @param array $request
-     * @return bool
-     */
-    public function validateResponseCallBack(array $request): bool
-    {
-        return true;
-    }
-
-    /**
-     * Response CallBack
-     *
-     * @param array $responseDetails
-     * @return array
-     * @throws JsonException
-     */
-    public function responseCallBack(array $responseDetails): array
-    {
-        $isValid = $this->validateResponseCallBack($responseDetails);
-        if (!$isValid)
-            return $this->response(400, false, "Payment Failed", null, $responseDetails);
-        $paymentDetails = $this->getPaymentDetails($responseDetails['pay_id'], $responseDetails['access_token']);
-        return $this->response($paymentDetails['code'], $paymentDetails['success'], $paymentDetails['message'], null, $paymentDetails['data']);
+        if (!$response->ok())
+            throw new JsonException("Failed To Get Access Token (Invalid authkey OR Pay ID Credentials)");
+        return $this->response($response->status(), ($jsonResponse->status == 'paid'), $jsonResponse?->source?->message, null, (array)$jsonResponse);
     }
 
 }
