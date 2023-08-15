@@ -37,7 +37,7 @@ class Moyasar extends BaseMethod
         //Set Method test Base Url
         $this->test_base_url = "https://api.moyasar.com";
         //Set Config Required Keys
-        $this->requiredConfigKeys = ['publishable_key', 'secret_key'];
+        $this->requiredConfigKeys = ['publishable_key', 'secret_key','callback_url','process_url'];
         //Calling Parent Constructor
         parent::__construct();
         //Init Http Client With Additional Configs
