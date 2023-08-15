@@ -59,6 +59,8 @@ return [
         'moyasar' => [
             'publishable_key' => env('MOYASAR_PUBLISHABLE_KEY', 'pk_test_MrhgMSK9MwUFpf2RiwFDzyToz6Pzi5qTx5ZsCuGz'),
             'secret_key' => env('MOYASAR_SECRET_KEY', 'sk_test_2XkyCPfWp1XDLqHhoGqgn34i8fMDrW6LTHgHsAra'),
+            'callback_url' => env('MOYASAR_CALLBACK_URL', 'https://wakeb.test/sass/sass_backend/public/success_url'),
+            'process_url' => env('MOYASAR_PROCESS_URL', 'https://wakeb.test/sass/sass_backend/public/response'),
             'sandbox' => env('MOYASAR_SAND_BOX', true),
         ],
     ]

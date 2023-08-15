@@ -4,7 +4,7 @@
     <title>Moyasar Payment</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <!-- Moyasar Styles -->
-    <link rel="stylesheet" href="https://cdn.moyasar.com/mpf/1.7.3/moyasar.css" />
+    <link rel="stylesheet" href="https://cdn.moyasar.com/mpf/1.7.3/moyasar.css"/>
 
     <!-- Moyasar Scripts -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=fetch"></script>
@@ -14,21 +14,42 @@
 </head>
 <body>
 <div class="mysr-form"></div>
-
 <script>
     Moyasar.init({
         element: '.mysr-form',
-        // Amount in the smallest currency unit.
-        // For example:
-        // 10 SAR = 10 * 100 Halalas
-        // 10 KWD = 10 * 1000 Fils
-        // 10 JPY = 10 JPY (Japanese Yen does not have fractions)
-        amount: 1000,
-        currency: 'SAR',
-        description: 'Coffee Order #1',
-        publishable_api_key: 'pk_test_AQpxBV31a29qhkhUYFYUFjhwllaDVrxSq5ydVNui',
-        callback_url: 'https://moyasar.com/thanks',
+        amount: {{$transaction_details['price'] * 100}},
+        currency: "{{$transaction_details['currency_code']}}",
+        description: "{{implode(', ',\Illuminate\Support\Arr::pluck($items,'name'))}}",
+        publishable_api_key: "{{$publishable_api_key}}",
+        callback_url: "{{$callback_url}}",
+        metadata: {
+            customer_details: {!!  json_encode($customer_details,true)!!},
+            items: {!!json_encode($items,true)!!},
+            transaction_details: {!!json_encode($transaction_details,true)!!},
+        },
         methods: ['creditcard'],
+        on_completed: function (payment) {
+            return new Promise(async function (resolve, reject) {
+                const payload =
+                    await fetch("{{$process_url}}", {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json; charset=utf-8'},
+                        body: JSON.stringify({
+                            ...payment,
+                            customer_details: {!!  json_encode($customer_details,true)!!},
+                            items: {!!json_encode($items,true)!!},
+                            transaction_details: {!!json_encode($transaction_details,true)!!},
+                        }),
+                    }).then((response) => {
+                        console.log(response.ok);
+                        if (response.ok) {
+                            resolve(response)
+                        } else {
+                            reject(response)
+                        }
+                    })
+            });
+        }
     })
 </script>
 </body>
